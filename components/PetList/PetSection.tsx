@@ -36,10 +36,7 @@ const PetSection: FunctionComponent<PetSectionProps> = (props) => {
           Pets
         </RegularText>
         {/* TODO: add icon */}
-        <SmallText textStyles={{ color: colors.black }}>
-          Category
-          <Ionicons name="caret-down" size={13} color={colors.black} />
-        </SmallText>
+        <SmallText textStyles={{ color: colors.black }}>Pet Type</SmallText>
       </PetRow>
 
       <PetList
