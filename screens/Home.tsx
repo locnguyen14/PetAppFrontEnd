@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar"; // zone above the screen where you see all the wifi shit
 import styled from "styled-components/native";
 
@@ -16,60 +16,31 @@ const HomeContainer = styled(Container)`
 // types
 import { RootStackParamList } from "../navigators/RootStack";
 import { StackScreenProps } from "@react-navigation/stack";
+import { PetProps } from "../components/PetList/types";
 export type Props = StackScreenProps<RootStackParamList, "Home">;
 
 const Home: FunctionComponent<Props> = () => {
-  //Harcoded data, even the data is not in the right shape of the PetProps (extra fields), it still show
-  const petData = [
-    {
-      id: 1,
-      name: "Gun",
-      height: 10,
-      weight: 10,
-      description: "Active cat",
-      type: "Cat",
-      art: {
-        icon: "cat",
-        background: colors.tertiray,
-      },
-    },
-    {
-      id: 2,
-      name: "Bullet",
-      height: 10,
-      weight: 10,
-      description: "Introvert Cat",
-      type: "Cat",
-      art: {
-        icon: "cat",
-        background: colors.tertiray,
-      },
-    },
-    {
-      id: 3,
-      name: "Clover",
-      height: 10,
-      weight: 10,
-      description: "Obese Cat",
-      type: "Cat",
-      art: {
-        icon: "cat",
-        background: colors.tertiray,
-      },
-    },
-    {
-      id: 4,
-      name: "Butt",
-      height: 10,
-      weight: 10,
-      description: "Weird Cat",
-      type: "Cat",
-      art: {
-        icon: "cat",
-        background: colors.tertiray,
-      },
-    },
-  ];
+  const [petData, setPetData] = useState<PetProps[]>([]);
+  useEffect(() => {
+    // use your machine IP for talking to emulator, remember to set the proxy field in the package.json as well
+    fetch("http://127.0.0.1:8000/animals/", { method: "GET" })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data);
+        setPetData(
+          data.results.map((item) => ({
+            name: item.name,
+            id: item.animal_id,
+            weight: item.weight,
+            height: item.height,
+            description: item.note,
+            type: item.animalType.toString(),
+            art: { icon: "cat", background: colors.tertiray },
+          }))
+        );
+      })
+      .catch((error) => console.log("Error Fetching data: ", error));
+  }, []);
 
   return (
     <HomeContainer>
