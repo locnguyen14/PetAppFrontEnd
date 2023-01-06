@@ -17,14 +17,20 @@ const StyledView = styled.View`
   align-items: center;
 `;
 
+const AvatarImage = styled.Image`
+  height: 40px;
+  width: 40px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const randomImageSouce = require("./../../assets/cat/Bullet.jpg");
+
 const PetAvi: FunctionComponent<PetAviProps> = (props) => {
   return (
     <StyledView style={{ backgroundColor: props.background }}>
-      <MaterialCommunityIcons
-        name={props.icon}
-        color={colors.white}
-        size={40}
-      />
+      <AvatarImage source={randomImageSouce} />
     </StyledView>
   );
 };

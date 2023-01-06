@@ -8,21 +8,32 @@ import RegularText from "../Texts/RegularText";
 import SmallText from "../Texts/SmallText";
 import BigText from "../Texts/BigText";
 
-import { View, Image } from "react-native";
+import { ScreenWidth } from "./../shared";
+
+const PetDetailImage = styled.Image`
+  height: 40%;
+  width: ${ScreenWidth * 0.9}px;
+  resize-mode: cover;
+  background-color: ${colors.primary};
+  border-radius: 25px;
+`;
 
 const PetDetailSectionBackground = styled.View`
   width: 100%
   padding-top: 5px;
-  align-items: left-align;
+  align-items: center;
   flex: 3;
 `;
 
 //types
 import { PetDetailProps } from "./types";
 
+const randomImageSouce = require("./../../assets/cat/Bullet.jpg");
+
 const PetDetailSection: FunctionComponent<PetDetailProps> = (props) => {
   return (
     <PetDetailSectionBackground>
+      <PetDetailImage source={randomImageSouce} />
       {/* Name */}
       <RegularText
         textStyles={{ color: colors.tertiray, marginBottom: 10, fontSize: 25 }}

@@ -35,7 +35,7 @@ const Home: FunctionComponent<Props> = () => {
             height: item.height,
             description: item.note,
             type: item.animalType,
-            art: { icon: "cat", background: colors.tertiray },
+            art: { icon: "cat", background: colors.primary },
           }))
         );
       })

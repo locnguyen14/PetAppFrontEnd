@@ -33,10 +33,10 @@ const PetSection: FunctionComponent<PetSectionProps> = (props) => {
     <PetSectionBackGround>
       <PetRow style={{ marginBottom: 25 }}>
         <RegularText textStyles={{ fontSize: 19, color: colors.black }}>
-          Pets
+          Pet
         </RegularText>
         {/* TODO: add icon */}
-        <SmallText textStyles={{ color: colors.black }}>Pet Type</SmallText>
+        <SmallText textStyles={{ color: colors.black }}>Pet</SmallText>
       </PetRow>
 
       <PetList
