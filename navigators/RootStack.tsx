@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/Home";
 import Welcome from "../screens/Welcome";
 import PetDetails from "../screens/PetDetails";
+import AddPet from "../screens/AddPet";
 
 //Custom components
 import Greeting from "../components/Header/Greeting";
@@ -22,6 +23,7 @@ export type RootStackParamList = {
   Welcome: undefined;
   Home: undefined;
   PetDetails: PetProps;
+  AddPet: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -43,6 +45,16 @@ const RootStack: FunctionComponent = () => {
         }}
         initialRouteName="Welcome"
       >
+        <Stack.Screen
+          name="AddPet"
+          component={AddPet}
+          options={{
+            headerTitle: (props) => (
+              <Greeting mainText="Form" subText="Add a pet" {...props} />
+            ),
+            headerLeft: () => <></>,
+          }}
+        />
         <Stack.Screen
           name="Welcome"
           component={Welcome}
