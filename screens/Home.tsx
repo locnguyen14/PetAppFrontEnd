@@ -7,6 +7,9 @@ import { colors } from "../components/colors";
 import { Container } from "../components/shared";
 import PetSection from "../components/PetList/PetSection";
 
+// services
+import PetService from "../services/PetService";
+
 const HomeContainer = styled(Container)`
   background-color: ${colors.graylight};
   width: 100%;
@@ -23,12 +26,12 @@ const Home: FunctionComponent<Props> = () => {
   const [petData, setPetData] = useState<PetProps[]>([]);
   useEffect(() => {
     // use your machine IP for talking to emulator, remember to set the proxy field in the package.json as well
-    fetch("http://127.0.0.1:8000/animals/", { method: "GET" })
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
+    PetService.getAll()
+      .then((response) => {
+        console.log(response.data);
+        var petList = response.data.results;
         setPetData(
-          data.results.map((item) => ({
+          petList.map((item) => ({
             name: item.name,
             id: item.animal_id,
             weight: item.weight,
