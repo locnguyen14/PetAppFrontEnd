@@ -9,6 +9,7 @@ import Home from "../screens/Home";
 import Welcome from "../screens/Welcome";
 import PetDetails from "../screens/PetDetails";
 import AddPet from "../screens/AddPet";
+import Register from "../screens/Register";
 
 //Custom components
 import Greeting from "../components/Header/Greeting";
@@ -22,6 +23,7 @@ import { PetProps } from "../components/PetList/types";
 export type RootStackParamList = {
   Welcome: undefined;
   Home: undefined;
+  Register: undefined;
   PetDetails: PetProps;
   AddPet: undefined;
 };
@@ -43,18 +45,8 @@ const RootStack: FunctionComponent = () => {
           },
           headerTintColor: colors.black,
         }}
-        initialRouteName="Welcome"
+        initialRouteName="Register"
       >
-        <Stack.Screen
-          name="AddPet"
-          component={AddPet}
-          options={{
-            headerTitle: (props) => (
-              <Greeting mainText="Form" subText="Add a pet" {...props} />
-            ),
-            headerLeft: () => <></>,
-          }}
-        />
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -68,6 +60,20 @@ const RootStack: FunctionComponent = () => {
               <Greeting
                 mainText="Hey Loc"
                 subText="Welcome to Pet App"
+                {...props}
+              />
+            ),
+            headerLeft: () => <></>,
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{
+            headerTitle: (props) => (
+              <Greeting
+                mainText="Form"
+                subText="User Registration"
                 {...props}
               />
             ),
@@ -92,6 +98,16 @@ const RootStack: FunctionComponent = () => {
               paddingLeft: 0,
             },
           })}
+        />
+        <Stack.Screen
+          name="AddPet"
+          component={AddPet}
+          options={{
+            headerTitle: (props) => (
+              <Greeting mainText="Form" subText="Add a pet" {...props} />
+            ),
+            headerLeft: () => <></>,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

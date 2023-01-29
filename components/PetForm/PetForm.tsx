@@ -9,11 +9,7 @@ import { Container } from "../shared";
 import RegularText from "../Texts/RegularText";
 import { ScreenWidth } from "./../shared";
 
-// types
-import { PetFormProps } from "./types";
-
-//hooks
-import { useForm } from "../../hooks/useForm";
+//TODO: rewrite this form with Formik
 
 // Styling
 const FormGroup = styled(Container)`
@@ -36,7 +32,7 @@ const Input = styled.TextInput`
   background-color: ${colors.white};
 `;
 
-const PetForm: FunctionComponent<PetFormProps> = (props) => {
+const PetForm: FunctionComponent = () => {
   return (
     <FormGroup>
       <View>
