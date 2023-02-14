@@ -1,4 +1,4 @@
-export interface PetFormProps {
+export interface PetFormValues {
   id: string;
   name: string;
   weight: number;
