@@ -1,11 +1,10 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components/native";
-import { View, TextInput, Button } from "react-native";
+import { View, TextInput, Button, Text } from "react-native";
 
 // Customisted components
-import RegularText from "../components/Texts/RegularText";
-import { ScreenWidth } from "../components/shared";
-import { colors } from "../components/colors";
+import FormLabel from "../components/Texts/FormLabel";
+import SubmitButton from "../components/Buttons/SubmitButton";
 
 // React hook form and Formik
 import { Formik } from "formik";
@@ -16,20 +15,6 @@ interface FormValues {
   password: string;
 }
 
-// Styling
-const FormLabel = styled(RegularText)`
-  font-size: 25px;
-`;
-const Input = styled.TextInput`
-  margin-top: 5;
-  margin-bottom: 10;
-  width: ${ScreenWidth * 0.85}px;
-  height: 40;
-  padding-horizontal: 5px;
-  border-radius: 25px;
-  background-color: ${colors.white};
-`;
-
 const Register: FunctionComponent = () => {
   const initialValues: FormValues = { userName: "", password: "" };
   return (
@@ -38,19 +23,23 @@ const Register: FunctionComponent = () => {
       onSubmit={(values) => console.log("Submitted: ", values)}
     >
       {({ handleChange, handleSubmit, values }) => (
-        <View>
-          <FormLabel> User Name </FormLabel>
-          <Input
-            value={values.userName}
-            onChangeText={handleChange("userName")}
-          />
-          <FormLabel> Password </FormLabel>
-          <Input
-            value={values.password}
-            onChangeText={handleChange("password")}
-            secureTextEntry={true}
-          />
-          <Button onPress={() => handleSubmit()} title="Submit" />
+        <View className="flex-1">
+          <View className="p-4">
+            <FormLabel text="User Name" />
+            <TextInput
+              className="bg-gray-100 border border-gray-300 rounded-lg p-2 mb-4"
+              value={values.userName}
+              onChangeText={handleChange("userName")}
+            />
+            <FormLabel text="Password" />
+            <TextInput
+              className="bg-gray-100 border border-gray-300 rounded-lg p-2 mb-4"
+              value={values.password}
+              onChangeText={handleChange("password")}
+              secureTextEntry={true}
+            />
+            <SubmitButton onPress={() => handleSubmit()}>Register</SubmitButton>
+          </View>
         </View>
       )}
     </Formik>

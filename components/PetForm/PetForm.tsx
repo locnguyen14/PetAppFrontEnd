@@ -8,19 +8,13 @@ import { colors } from "../colors";
 import { Container } from "../shared";
 import RegularText from "../Texts/RegularText";
 import { ScreenWidth } from "./../shared";
+import FormLabel from "../Texts/FormLabel";
 
 import { PetFormValues } from "./types";
 import { Formik } from "formik";
+import { TextInput } from "react-native-gesture-handler";
 
 // Styling
-const FormGroup = styled(Container)`
-  background-color: ${colors.graylight};
-  width: 100%;
-  flex: 1;
-`;
-const FormLabel = styled(RegularText)`
-  font-size: 25px;
-`;
 const Input = styled.TextInput`
   margin-top: 5;
   margin-bottom: 10;
@@ -47,25 +41,32 @@ const PetForm: FunctionComponent = () => {
     >
       {({ handleChange, handleSubmit, values }) => (
         <View>
-          <FormLabel> Pet Name </FormLabel>
-          <Input value={values.name} onChangeText={handleChange("name")} />
+          <FormLabel text="Pet Name" />
+          <TextInput
+            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
+            value={values.name}
+            onChangeText={handleChange("name")}
+          />
 
-          <FormLabel> Weight (kg) </FormLabel>
-          <Input
+          <FormLabel text="Weight" />
+          <TextInput
+            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
             value={`${values.weight}`}
             keyboardType="numeric"
             onChangeText={handleChange("weight")}
           />
 
-          <FormLabel> Height (m) </FormLabel>
-          <Input
+          <FormLabel text="Height" />
+          <TextInput
+            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
             value={`${values.height}`}
             keyboardType="numeric"
             onChangeText={handleChange("height")}
           />
 
-          <FormLabel> Description </FormLabel>
-          <Input
+          <FormLabel text="Description" />
+          <TextInput
+            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
             multiline
             value={values.description}
             keyboardType="numeric"

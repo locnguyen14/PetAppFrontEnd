@@ -45,7 +45,7 @@ const RootStack: FunctionComponent = () => {
           },
           headerTintColor: colors.black,
         }}
-        initialRouteName="Welcome"
+        initialRouteName="Register"
       >
         <Stack.Screen
           name="Welcome"
