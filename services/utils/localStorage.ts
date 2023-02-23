@@ -7,7 +7,7 @@ interface userData{
     username:string;
 }
 
-interface storageData{
+export interface storageData{
     user: userData;
     token: string;
 }
@@ -20,7 +20,11 @@ const getValueFor = async (key:string) => {
     return await SecureStore.getItemAsync(key);
 }
 
-const localStorage = {save, getValueFor};
+const remove = async(key:string) => {
+    await SecureStore.deleteItemAsync(key);
+}
+
+const localStorage = {save, getValueFor, remove};
 
 export default localStorage;
 

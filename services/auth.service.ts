@@ -1,6 +1,7 @@
 // axios
 import http from "../http-common";
 import localStorage from "./utils/localStorage";
+import { storageData } from "./utils/localStorage";
 
 export interface userRegisterFormData {
     username: string;
@@ -15,11 +16,12 @@ const register = (data: userRegisterFormData) => {
     return http.post("/user/register", data)
 }
 
-const login = async (username: string, password: string) => {
+const login = async (username: string, password: string) : Promise<storageData> => {
     const response = await http.post("/user/login", { username: username, password: password });
-    console.log(response);
+    console.log("Axios response: ", response);
+    // TODO: safeguard the response
     if (response.data.token) {
-        await localStorage.save("user", response.data.result);
+        console.log("Successful Data with token: ", response.data);
     }
     return await response.data;
 }
