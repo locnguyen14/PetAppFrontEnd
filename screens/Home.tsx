@@ -24,25 +24,30 @@ export type Props = StackScreenProps<RootStackParamList, "Home">;
 
 const Home: FunctionComponent<Props> = () => {
   const [petData, setPetData] = useState<PetProps[]>([]);
+  const loadPets = async () => {
+    console.log("Load Pets");
+    try {
+      var pets = await PetService.getAll();
+      console.log("Pets are: ", pets);
+      var petsList = pets.data.results;
+      setPetData(
+        petsList.map((item) => ({
+          name: item.name,
+          id: item.animal_id,
+          weight: item.weight,
+          height: item.height,
+          description: item.note,
+          type: item.animalType,
+          art: { icon: "cat", background: colors.primary },
+        }))
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
     // use your machine IP for talking to emulator, remember to set the proxy field in the package.json as well
-    PetService.getAll()
-      .then((response) => {
-        console.log(response.data);
-        var petList = response.data.results;
-        setPetData(
-          petList.map((item) => ({
-            name: item.name,
-            id: item.animal_id,
-            weight: item.weight,
-            height: item.height,
-            description: item.note,
-            type: item.animalType,
-            art: { icon: "cat", background: colors.primary },
-          }))
-        );
-      })
-      .catch((error) => console.log("Error Fetching data: ", error));
+    loadPets();
   }, []);
 
   return (

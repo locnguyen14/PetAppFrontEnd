@@ -42,7 +42,6 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children }) => {
   async function loadStorageData(): Promise<void> {
     try {
       //Try get the data from Expo Secure Storage
-      await localStorage.remove("AuthData");
       const authDataSerialized = await localStorage.getValueFor("AuthData");
       console.log("Auth Data Serilized: ", authDataSerialized);
       if (authDataSerialized) {
@@ -62,13 +61,13 @@ const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children }) => {
     //TODO: What if the _authData here is error?
     const _authData = await AuthService.login(username, password);
 
-    //Set the data in the context, so the App can be notified
-    //and send the user to the AuthStack
-    setAuthData(_authData);
-
     //Persist the data in the Async Storage
     //to be recovered in the next user session.
     await localStorage.save("AuthData", _authData);
+
+    //Set the data in the context, so the App can be notified
+    //and send the user to the AuthStack
+    setAuthData(_authData);
   };
 
   const signOut = async () => {

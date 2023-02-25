@@ -1,5 +1,6 @@
 // axios
-import http from "../http-common";
+import { REACT_APP_API_URL } from "@env";
+import axios from "axios";
 import localStorage from "./utils/localStorage";
 import { storageData } from "./utils/localStorage";
 
@@ -13,23 +14,19 @@ export interface userRegisterFormData {
 }
 
 const register = (data: userRegisterFormData) => {
-    return http.post("/user/register", data)
+    return axios.post(REACT_APP_API_URL + "/user/register", data);
 }
 
-const login = async (username: string, password: string) : Promise<storageData> => {
-    const response = await http.post("/user/login", { username: username, password: password });
-    console.log("Axios response: ", response);
-    // TODO: safeguard the response
-    if (response.data.token) {
-        console.log("Successful Data with token: ", response.data);
-    }
-    return await response.data;
+const login = async (username: string, password: string) : Promise<storageData>=> {
+    return axios.post(REACT_APP_API_URL + "/user/login", { username: username, password: password })
+    .then((response) =>{
+        if (response.data.token){
+            console.log("Token retrieve: ", response.data.token);
+        }
+        return response.data;
+    })
+    .catch((e) =>{console.log("Error during user login request");});
 }
-
-const getCurrentUser = async () => {
-    const userStr = await localStorage.getValueFor("user");
-}
-
 
 const AuthService = {register, login};
 
