@@ -17,10 +17,10 @@ const HomeContainer = styled(Container)`
 `;
 
 // types
-import { RootStackParamList } from "../navigators/RootStack";
+import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
 import { PetProps } from "../components/PetList/types";
-export type Props = StackScreenProps<RootStackParamList, "Home">;
+export type Props = StackScreenProps<AuthStackParamList, "Home">;
 
 const Home: FunctionComponent<Props> = () => {
   const [petData, setPetData] = useState<PetProps[]>([]);

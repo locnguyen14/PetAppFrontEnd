@@ -38,9 +38,9 @@ const TopImage = styled.Image`
 import background from "./../assets/background/background_welcome.jpg";
 
 // types
-import { RootStackParamList } from "../navigators/RootStack";
+import { AppStackParamList } from "../navigators/AppStack";
 import { StackScreenProps } from "@react-navigation/stack";
-type Props = StackScreenProps<RootStackParamList, "Welcome">;
+type Props = StackScreenProps<AppStackParamList, "Welcome">;
 
 const Welcome: FunctionComponent<Props> = ({ navigation }) => {
   return (
@@ -59,10 +59,17 @@ const Welcome: FunctionComponent<Props> = ({ navigation }) => {
           </SmallText>
           <RegularButton
             onPress={() => {
-              navigation.navigate("Home");
+              navigation.navigate("SignIn");
             }}
           >
-            Meet Pets
+            Sign In
+          </RegularButton>
+          <RegularButton
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            Register
           </RegularButton>
         </BottomSection>
       </WelcomeContainer>

@@ -15,9 +15,9 @@ const AddPetContainer = styled(Container)`
 `;
 
 // types
-import { RootStackParamList } from "../navigators/RootStack";
+import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
-type Props = StackScreenProps<RootStackParamList, "AddPet">;
+type Props = StackScreenProps<AuthStackParamList, "AddPet">;
 
 const AddPet: FunctionComponent<Props> = ({ navigation }) => {
   return (

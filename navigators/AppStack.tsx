@@ -9,11 +9,14 @@ import SignIn from "../screens/SignIn";
 
 //Components
 import { colors } from "../components/colors";
+import Greeting from "../components/Header/Greeting";
+import Register from "../screens/Register";
 
 // Define the type of the components
 export type AppStackParamList = {
   Welcome: undefined;
   SignIn: undefined;
+  Register: undefined;
 };
 
 const Stack = createStackNavigator<AppStackParamList>();
@@ -32,7 +35,7 @@ const AppStack: FunctionComponent = () => {
         },
         headerTintColor: colors.black,
       }}
-      initialRouteName="SignIn"
+      initialRouteName="Welcome"
     >
       <Stack.Screen
         name="Welcome"
@@ -42,7 +45,26 @@ const AppStack: FunctionComponent = () => {
       <Stack.Screen
         name="SignIn"
         component={SignIn}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: (props) => (
+            <Greeting mainText="Welcome" subText="User Login" {...props} />
+          ),
+          headerLeft: () => <></>,
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerTitle: (props) => (
+            <Greeting
+              mainText="Welcome"
+              subText="User Registration"
+              {...props}
+            />
+          ),
+          headerLeft: () => <></>,
+        }}
       />
     </Stack.Navigator>
   );

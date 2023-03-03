@@ -6,7 +6,7 @@ import React, {
   FunctionComponent,
 } from "react";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../services/AuthService";
 import { storageData } from "../services/utils/localStorage";
 
 import localStorage from "../services/utils/localStorage";

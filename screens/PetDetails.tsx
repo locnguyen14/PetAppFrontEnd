@@ -14,11 +14,10 @@ const PetDetailContainer = styled(Container)`
   flex: 2;
 `;
 
-// Need the data from the screen components --> rootstack
 // types
-import { RootStackParamList } from "../navigators/RootStack";
+import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
-type Props = StackScreenProps<RootStackParamList, "PetDetails">;
+type Props = StackScreenProps<AuthStackParamList, "PetDetails">;
 
 const PetDetails: FunctionComponent<Props> = ({ route }) => {
   return (

@@ -8,10 +8,13 @@ import SubmitButton from "../components/Buttons/SubmitButton";
 
 // React hook form and Formik
 import { Formik } from "formik";
+import AuthService, { userRegisterFormData } from "../services/AuthService";
 
-import AuthService, { userRegisterFormData } from "../services/auth.service";
+import { AppStackParamList } from "../navigators/AppStack";
+import { StackScreenProps } from "@react-navigation/stack";
+type Props = StackScreenProps<AppStackParamList, "Register">;
 
-const Register: FunctionComponent = () => {
+const Register: FunctionComponent<Props> = ({ navigation }) => {
   const initialValues: userRegisterFormData = {
     username: "",
     password: "",
@@ -29,7 +32,8 @@ const Register: FunctionComponent = () => {
       onSubmit={(values) => {
         console.log("Submitted: ", values);
         AuthService.register(values);
-        //TODO: what to do after successfully login? navigate to a blank page to add their pets
+        navigation.navigate("SignIn");
+        //TODO: sent a toast of successful login
       }}
     >
       {({ handleChange, handleSubmit, values }) => (

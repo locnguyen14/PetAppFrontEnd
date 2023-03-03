@@ -40,7 +40,7 @@ const SignIn: FunctionComponent = () => {
               onChangeText={handleChange("password")}
               secureTextEntry={true}
             />
-            <SubmitButton onPress={() => handleSubmit()}>Register</SubmitButton>
+            <SubmitButton onPress={() => handleSubmit()}>Submit</SubmitButton>
           </View>
         </View>
       )}

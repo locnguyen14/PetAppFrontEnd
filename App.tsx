@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
-import RootStack from "./navigators/RootStack";
 import { Router } from "./navigators/Router";
 import { AuthProvider } from "./context/Auth";
 
