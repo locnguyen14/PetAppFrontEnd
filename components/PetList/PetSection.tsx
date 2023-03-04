@@ -9,6 +9,10 @@ import PetItem from "./PetItem";
 
 //types
 import { PetSectionProps } from "./types";
+import SubmitButton from "../Buttons/SubmitButton";
+import { View } from "react-native";
+
+import { useAuth } from "../../context/Auth";
 
 const PetSectionBackGround = styled.View`
   width: 100%;
@@ -29,6 +33,7 @@ const PetList = styled.FlatList`
 `;
 
 const PetSection: FunctionComponent<PetSectionProps> = (props) => {
+  const auth = useAuth();
   return (
     <PetSectionBackGround>
       <PetRow style={{ marginBottom: 25 }}>
@@ -46,6 +51,16 @@ const PetSection: FunctionComponent<PetSectionProps> = (props) => {
         keyExtractor={({ id }: any) => id.toString()}
         renderItem={({ item }: any) => <PetItem {...item} />}
       />
+      <View>
+        <SubmitButton
+          onPress={() => {
+            console.log("Logging out");
+            auth.signOut();
+          }}
+        >
+          Sign Out
+        </SubmitButton>
+      </View>
     </PetSectionBackGround>
   );
 };
