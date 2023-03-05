@@ -28,7 +28,6 @@ const Home: FunctionComponent<Props> = () => {
     console.log("Load Pets");
     try {
       var pets = await PetService.getAll();
-      console.log("Pets are: ", pets);
       var petsList = pets.data.results;
       setPetData(
         petsList.map((item) => ({
@@ -41,8 +40,8 @@ const Home: FunctionComponent<Props> = () => {
           art: { icon: "cat", background: colors.primary },
         }))
       );
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log("Error Loading Pets: ", error);
     }
   };
   useEffect(() => {

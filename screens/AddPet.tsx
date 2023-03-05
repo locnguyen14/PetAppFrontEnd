@@ -23,7 +23,7 @@ const AddPet: FunctionComponent<Props> = ({ navigation }) => {
   return (
     <AddPetContainer>
       <StatusBar style="dark" />
-      <PetForm />
+      <PetForm navigation={navigation} />
     </AddPetContainer>
   );
 };

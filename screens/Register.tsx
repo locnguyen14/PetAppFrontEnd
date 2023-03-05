@@ -30,7 +30,6 @@ const Register: FunctionComponent<Props> = ({ navigation }) => {
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => {
-        console.log("Submitted: ", values);
         AuthService.register(values);
         navigation.navigate("SignIn");
         //TODO: sent a toast of successful login

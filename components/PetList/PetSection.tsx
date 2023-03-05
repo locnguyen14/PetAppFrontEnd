@@ -54,7 +54,6 @@ const PetSection: FunctionComponent<PetSectionProps> = (props) => {
       <View>
         <SubmitButton
           onPress={() => {
-            console.log("Logging out");
             auth.signOut();
           }}
         >

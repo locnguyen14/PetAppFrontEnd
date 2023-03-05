@@ -1,18 +1,23 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar"; // zone above the screen where you see all the wifi shit
+import React, { FunctionComponent } from "react";
 import styled from "styled-components/native";
-import { View, Button } from "react-native";
+import { View } from "react-native";
+import { SelectList } from "react-native-dropdown-select-list";
+import { TextInput } from "react-native-gesture-handler";
 
 //custom components
 import { colors } from "../colors";
-import { Container } from "../shared";
-import RegularText from "../Texts/RegularText";
 import { ScreenWidth } from "./../shared";
 import FormLabel from "../Texts/FormLabel";
+import SubmitButton from "../Buttons/SubmitButton";
 
 import { PetFormValues } from "./types";
 import { Formik } from "formik";
-import { TextInput } from "react-native-gesture-handler";
+
+// services
+import PetService from "../../services/PetService";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { AuthStackParamList } from "navigators/AuthStack";
 
 // Styling
 const Input = styled.TextInput`
@@ -25,55 +30,84 @@ const Input = styled.TextInput`
   background-color: ${colors.white};
 `;
 
-const PetForm: FunctionComponent = () => {
+interface AnimalType {
+  key: number;
+  value: string;
+}
+
+type Props = {
+  navigation: StackNavigationProp<AuthStackParamList, "AddPet">;
+};
+
+const PetForm: FunctionComponent<Props> = ({ navigation }) => {
+  const PetCategory: AnimalType[] = [
+    { key: 0, value: "Dog" },
+    { key: 1, value: "Cat" },
+    { key: 2, value: "Others" },
+  ];
   const initialValues: PetFormValues = {
-    id: "",
     name: "",
     weight: 0,
     height: 0,
-    description: "",
-    type: "",
+    note: "",
+    animalType: 0,
   };
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => console.log("Submitted: ", values)}
+      onSubmit={(values) => {
+        PetService.create(values)
+          .then((response) => {
+            console.log("Successful response: ", response);
+            navigation.navigate("Home");
+          })
+          .catch((error) => console.log("Error: ", error));
+      }}
     >
       {({ handleChange, handleSubmit, values }) => (
-        <View>
-          <FormLabel text="Pet Name" />
-          <TextInput
-            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
-            value={values.name}
-            onChangeText={handleChange("name")}
-          />
+        <View className="flex-1">
+          <View className="p-4">
+            <FormLabel text="Pet Name" />
+            <TextInput
+              className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
+              value={values.name}
+              onChangeText={handleChange("name")}
+            />
 
-          <FormLabel text="Weight" />
-          <TextInput
-            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
-            value={`${values.weight}`}
-            keyboardType="numeric"
-            onChangeText={handleChange("weight")}
-          />
+            <FormLabel text="Weight" />
+            <TextInput
+              className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
+              value={`${values.weight}`}
+              keyboardType="numeric"
+              onChangeText={handleChange("weight")}
+            />
 
-          <FormLabel text="Height" />
-          <TextInput
-            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
-            value={`${values.height}`}
-            keyboardType="numeric"
-            onChangeText={handleChange("height")}
-          />
+            <FormLabel text="Height" />
+            <TextInput
+              className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
+              value={`${values.height}`}
+              keyboardType="numeric"
+              onChangeText={handleChange("height")}
+            />
 
-          <FormLabel text="Description" />
-          <TextInput
-            className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
-            multiline
-            value={values.description}
-            keyboardType="numeric"
-            onChangeText={handleChange("description")}
-          />
+            <FormLabel text="Description" />
+            <TextInput
+              className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
+              multiline
+              value={values.note}
+              onChangeText={handleChange("note")}
+            />
 
-          <Button onPress={() => handleSubmit()} title="Submit" />
+            <FormLabel text="Pet Type" />
+            <SelectList
+              setSelected={(field: AnimalType) => {
+                handleChange("animalType");
+              }}
+              data={PetCategory}
+              save="key"
+            />
+          </View>
+          <SubmitButton onPress={() => handleSubmit()}>Submit</SubmitButton>
         </View>
       )}
     </Formik>

@@ -25,7 +25,7 @@ const login = async (username: string, password: string) : Promise<storageData>=
         }
         return response.data;
     })
-    .catch((e) =>{console.log("Error during user login request");});
+    .catch((error) =>{console.log("Error during user login request", error);});
 }
 
 const AuthService = {register, login};
