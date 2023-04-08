@@ -17,13 +17,13 @@ const AddPetContainer = styled(Container)`
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
-type Props = StackScreenProps<AuthStackParamList, "AddPet">;
+export type Props = StackScreenProps<AuthStackParamList, "AddPet">;
 
-const AddPet: FunctionComponent<Props> = ({ navigation }) => {
+const AddPet: FunctionComponent<Props> = () => {
   return (
     <AddPetContainer>
       <StatusBar style="dark" />
-      <AddPetForm navigation={navigation} />
+      <AddPetForm />
     </AddPetContainer>
   );
 };
