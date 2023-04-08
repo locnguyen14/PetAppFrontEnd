@@ -39,7 +39,7 @@ type Props = {
   navigation: StackNavigationProp<AuthStackParamList, "AddPet">;
 };
 
-const PetForm: FunctionComponent<Props> = ({ navigation }) => {
+const AddPetForm: FunctionComponent<Props> = ({ navigation }) => {
   const PetCategory: AnimalType[] = [
     { key: 0, value: "Dog" },
     { key: 1, value: "Cat" },
@@ -114,4 +114,4 @@ const PetForm: FunctionComponent<Props> = ({ navigation }) => {
   );
 };
 
-export default PetForm;
+export default AddPetForm;

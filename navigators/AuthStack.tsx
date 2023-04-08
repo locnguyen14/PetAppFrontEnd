@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 // Screens
 import Home from "../screens/Home";
 import AddPet from "../screens/AddPet";
+import EditPet from "../screens/EditPet";
 
 //Components
 import { colors } from "../components/colors";
@@ -14,13 +15,18 @@ import PetDetails from "../screens/PetDetails";
 import { Ionicons } from "@expo/vector-icons";
 
 // Types
-import { PetProps } from "../components/PetList/types";
+import { PetFormValues } from "../components/PetForm/types";
+import { PetDetailProps } from "../components/PetDetail/types";
+type PetEditFormParams = {
+  petId: string;
+};
 
 // Define the type of the components
 export type AuthStackParamList = {
   Home: undefined;
-  PetDetails: PetProps;
+  PetDetails: PetDetailProps;
   AddPet: undefined;
+  EditPet: PetEditFormParams;
 };
 
 const Stack = createStackNavigator<AuthStackParamList>();
@@ -39,7 +45,7 @@ const AuthStack: FunctionComponent = () => {
         },
         headerTintColor: colors.black,
       }}
-      initialRouteName="AddPet"
+      initialRouteName="Home"
     >
       <Stack.Screen
         name="Home"
@@ -77,6 +83,16 @@ const AuthStack: FunctionComponent = () => {
       <Stack.Screen
         name="AddPet"
         component={AddPet}
+        options={{
+          headerTitle: (props) => (
+            <Greeting mainText="Welcome" subText="Add a pet" {...props} />
+          ),
+          headerLeft: () => <></>,
+        }}
+      />
+      <Stack.Screen
+        name="EditPet"
+        component={EditPet}
         options={{
           headerTitle: (props) => (
             <Greeting mainText="Welcome" subText="Add a pet" {...props} />

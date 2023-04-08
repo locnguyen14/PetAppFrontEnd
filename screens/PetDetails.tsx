@@ -23,7 +23,8 @@ import { StackScreenProps } from "@react-navigation/stack";
 type Props = StackScreenProps<AuthStackParamList, "PetDetails">;
 
 const PetDetails: FunctionComponent<Props> = ({ route, navigation }) => {
-  const HandleDelete = (petId: string) => {
+  const petId = route.params.id.toString();
+  const HandleDelete = () => {
     PetService.remove(petId)
       .then((response) => {
         console.log("Successfully Delete Animal", response);
@@ -32,13 +33,16 @@ const PetDetails: FunctionComponent<Props> = ({ route, navigation }) => {
       .catch((error) => console.log("Error during delete: ", error));
   };
 
+  const ToEditPage = () => {
+    navigation.navigate("EditPet", petId);
+  };
+
   return (
     <PetDetailContainer>
       <StatusBar style="dark" />
       <PetDetailSection {...route?.params} />
-      <RegularButton onPress={() => HandleDelete(route.params.id.toString())}>
-        Delete
-      </RegularButton>
+      <RegularButton onPress={() => HandleDelete}>Delete</RegularButton>
+      <RegularButton onPress={() => ToEditPage}>Edit</RegularButton>
     </PetDetailContainer>
   );
 };

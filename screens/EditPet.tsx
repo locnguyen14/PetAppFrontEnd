@@ -5,7 +5,6 @@ import styled from "styled-components/native";
 // custom components
 import { colors } from "../components/colors";
 import { Container } from "../components/shared";
-import AddPetForm from "../components/PetForm/AddPetForm";
 
 const AddPetContainer = styled(Container)`
   background-color: ${colors.graylight};
@@ -17,15 +16,17 @@ const AddPetContainer = styled(Container)`
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
-type Props = StackScreenProps<AuthStackParamList, "AddPet">;
+import EditPetForm from "../components/PetForm/EditPetForm";
+import { PetFormValues } from "components/PetForm/types";
+export type Props = StackScreenProps<AuthStackParamList, "EditPet">;
 
-const AddPet: FunctionComponent<Props> = ({ navigation }) => {
+const EditPet: FunctionComponent<Props> = ({ route }) => {
   return (
     <AddPetContainer>
       <StatusBar style="dark" />
-      <AddPetForm navigation={navigation} />
+      <EditPetForm {...route?.params} />
     </AddPetContainer>
   );
 };
 
-export default AddPet;
+export default EditPet;

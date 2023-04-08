@@ -23,6 +23,20 @@ const remove = async (petId: string) => {
   });
 };
 
-const PetService = { getAll, create, remove };
+const getDetails = async (petId: string) => {
+  var header = await authHeader();
+  return axios.get(REACT_APP_API_URL + `/animals/${petId}`, {
+    headers: header,
+  });
+};
+
+const edit = async (data: PetFormValues, petId: string) => {
+  var header = await authHeader();
+  return axios.put(REACT_APP_API_URL + `/animals/${petId}`, data, {
+    headers: header,
+  });
+};
+
+const PetService = { getAll, create, remove, getDetails, edit };
 
 export default PetService;
