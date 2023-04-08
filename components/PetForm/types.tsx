@@ -1,3 +1,5 @@
+import { PetDetailProps } from "../PetDetail/types";
+
 export interface PetFormValues {
   name: string;
   weight: number;
@@ -5,3 +7,5 @@ export interface PetFormValues {
   note: string;
   animalType: number;
 }
+
+export type EditPetFormProps = Omit<PetDetailProps, "art">;

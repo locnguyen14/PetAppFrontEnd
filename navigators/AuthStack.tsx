@@ -15,18 +15,15 @@ import PetDetails from "../screens/PetDetails";
 import { Ionicons } from "@expo/vector-icons";
 
 // Types
-import { PetFormValues } from "../components/PetForm/types";
+import { EditPetFormProps } from "../components/PetForm/types";
 import { PetDetailProps } from "../components/PetDetail/types";
-type PetEditFormParams = {
-  petId: string;
-};
 
 // Define the type of the components
 export type AuthStackParamList = {
   Home: undefined;
   PetDetails: PetDetailProps;
   AddPet: undefined;
-  EditPet: PetEditFormParams;
+  EditPet: EditPetFormProps;
 };
 
 const Stack = createStackNavigator<AuthStackParamList>();
@@ -95,7 +92,7 @@ const AuthStack: FunctionComponent = () => {
         component={EditPet}
         options={{
           headerTitle: (props) => (
-            <Greeting mainText="Welcome" subText="Add a pet" {...props} />
+            <Greeting mainText="Welcome" subText="Edit a pet" {...props} />
           ),
           headerLeft: () => <></>,
         }}

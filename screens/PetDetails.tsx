@@ -20,6 +20,7 @@ const PetDetailContainer = styled(Container)`
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
+import { EditPetFormProps } from "components/PetForm/types";
 type Props = StackScreenProps<AuthStackParamList, "PetDetails">;
 
 const PetDetails: FunctionComponent<Props> = ({ route, navigation }) => {
@@ -34,15 +35,16 @@ const PetDetails: FunctionComponent<Props> = ({ route, navigation }) => {
   };
 
   const ToEditPage = () => {
-    navigation.navigate("EditPet", petId);
+    console.log("Inside To Edit Page?");
+    navigation.navigate("EditPet", { ...route.params });
   };
 
   return (
     <PetDetailContainer>
       <StatusBar style="dark" />
       <PetDetailSection {...route?.params} />
-      <RegularButton onPress={() => HandleDelete}>Delete</RegularButton>
-      <RegularButton onPress={() => ToEditPage}>Edit</RegularButton>
+      <RegularButton onPress={() => HandleDelete()}>Delete</RegularButton>
+      <RegularButton onPress={() => ToEditPage()}>Edit</RegularButton>
     </PetDetailContainer>
   );
 };

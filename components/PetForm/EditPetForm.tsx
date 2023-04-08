@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useState, useCallback } from "react";
+import React, {
+  FunctionComponent,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { TextInput } from "react-native-gesture-handler";
@@ -12,48 +17,56 @@ import { Formik } from "formik";
 
 // services
 import PetService from "../../services/PetService";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 
 // types
 interface AnimalType {
   key: number;
   value: string;
 }
-type EditPetFormProps = {
-  petId: string;
-};
+
+import { EditPetFormProps } from "./types";
 import { Props as EditPetPageProps } from "../../screens/EditPet";
 
-const EditPetForm: FunctionComponent<EditPetFormProps> = ({ petId }) => {
+const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
+  const { id, name, weight, height, description, type } = props;
+  const petId = id.toString();
   const navigation = useNavigation<EditPetPageProps["navigation"]>();
+  const isFocused = useIsFocused();
   const PetCategory: AnimalType[] = [
     { key: 0, value: "Dog" },
     { key: 1, value: "Cat" },
     { key: 2, value: "Others" },
   ];
+
   const initialValues: PetFormValues = {
-    name: "",
-    weight: 0,
-    height: 0,
-    note: "",
-    animalType: 0,
+    name: name,
+    weight: weight,
+    height: height,
+    note: description,
+    animalType: PetCategory.find((item) => item.value === type)?.key ?? 0,
   };
   const [currentPetValue, setCurrentPetValue] =
     useState<PetFormValues>(initialValues);
-  const loadPetDetails = async () => {
-    console.log("Load Pet Detail");
-    try {
-      var newPetDetail = (await PetService.getDetails(petId)).data.results;
-      setCurrentPetValue(newPetDetail);
-    } catch (error) {
-      console.log("Error Loading Pet Details: ", error);
+
+  useEffect(() => {
+    const loadPetDetails = async () => {
+      console.log("Load Pet Detail");
+      try {
+        var newPetDetail = (await PetService.getDetails(petId)).data.results;
+        setCurrentPetValue(newPetDetail);
+      } catch (error) {
+        console.log("Error Loading Pet Details: ", error);
+      }
+    };
+    if (isFocused) {
+      loadPetDetails();
     }
-  };
-  useFocusEffect(() => {
-    useCallback(() => {
-      return () => loadPetDetails();
-    }, [petId]);
-  });
+  }, [isFocused]);
 
   return (
     <Formik
