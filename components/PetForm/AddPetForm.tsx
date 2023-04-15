@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components/native";
 import { View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -24,6 +24,7 @@ import { Props as AddPetPageProps } from "../../screens/AddPet";
 
 const AddPetForm: FunctionComponent = () => {
   const navigation = useNavigation<AddPetPageProps["navigation"]>();
+  const [animalTypeValue, setAnimalTypeValue] = useState(0);
   const PetCategory: AnimalType[] = [
     { key: 0, value: "Dog" },
     { key: 1, value: "Cat" },
@@ -34,15 +35,23 @@ const AddPetForm: FunctionComponent = () => {
     weight: 0,
     height: 0,
     note: "",
-    animalType: 0,
+    animalType: animalTypeValue,
   };
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values) => {
-        PetService.create(values)
+        const newPetValue: PetFormValues = {
+          name: values.name,
+          weight: values.weight,
+          height: values.height,
+          note: values.note,
+          animalType: animalTypeValue,
+        };
+        console.log("Add Pet value is: ", newPetValue);
+        PetService.create(newPetValue)
           .then((response) => {
-            console.log("Successful response: ", response);
+            console.log("Successful response add pet: ", response);
             navigation.navigate("Home");
           })
           .catch((error) => console.log("Error: ", error));
@@ -84,9 +93,7 @@ const AddPetForm: FunctionComponent = () => {
 
             <FormLabel text="Pet Type" />
             <SelectList
-              setSelected={(field: AnimalType) => {
-                handleChange("animalType");
-              }}
+              setSelected={(key: number) => setAnimalTypeValue(key)}
               data={PetCategory}
               save="key"
             />
