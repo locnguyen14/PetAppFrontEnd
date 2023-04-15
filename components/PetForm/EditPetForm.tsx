@@ -33,22 +33,25 @@ import { EditPetFormProps } from "./types";
 import { Props as EditPetPageProps } from "../../screens/EditPet";
 
 const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
-  const { id, name, weight, height, description, type } = props;
-  const petId = id.toString();
-  const navigation = useNavigation<EditPetPageProps["navigation"]>();
-  const isFocused = useIsFocused();
   const PetCategory: AnimalType[] = [
     { key: 0, value: "Dog" },
     { key: 1, value: "Cat" },
     { key: 2, value: "Others" },
   ];
+  const { id, name, weight, height, description, type } = props;
+  const [animalTypeValue, setAnimalTypeValue] = useState(
+    PetCategory.find((item) => item.value === type)?.key ?? 0
+  );
+  const petId = id.toString();
+  const navigation = useNavigation<EditPetPageProps["navigation"]>();
+  const isFocused = useIsFocused();
 
   const initialValues: PetFormValues = {
     name: name,
     weight: weight,
     height: height,
     note: description,
-    animalType: PetCategory.find((item) => item.value === type)?.key ?? 0,
+    animalType: animalTypeValue,
   };
   const [currentPetValue, setCurrentPetValue] =
     useState<PetFormValues>(initialValues);
@@ -72,7 +75,14 @@ const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
     <Formik
       initialValues={currentPetValue}
       onSubmit={(values) => {
-        PetService.edit(values, petId)
+        const editPetValue: PetFormValues = {
+          name: values.name,
+          weight: values.weight,
+          height: values.height,
+          note: values.note,
+          animalType: animalTypeValue,
+        };
+        PetService.edit(editPetValue, petId)
           .then((response) => {
             console.log("Successful Edit Animal: ", response);
             navigation.navigate("Home");
@@ -116,9 +126,7 @@ const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
 
             <FormLabel text="Pet Type" />
             <SelectList
-              setSelected={(field: AnimalType) => {
-                handleChange("animalType");
-              }}
+              setSelected={(key: number) => setAnimalTypeValue(key)}
               data={PetCategory}
               save="key"
             />
