@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from "react";
-import styled from "styled-components/native";
 import { View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { TextInput } from "react-native-gesture-handler";
@@ -16,20 +15,12 @@ import PetService from "../../services/PetService";
 import { useNavigation } from "@react-navigation/native";
 
 // types
-interface AnimalType {
-  key: number;
-  value: string;
-}
+import { PetCategory } from "./types";
 import { Props as AddPetPageProps } from "../../screens/AddPet";
 
 const AddPetForm: FunctionComponent = () => {
   const navigation = useNavigation<AddPetPageProps["navigation"]>();
   const [animalTypeValue, setAnimalTypeValue] = useState(0);
-  const PetCategory: AnimalType[] = [
-    { key: 0, value: "Dog" },
-    { key: 1, value: "Cat" },
-    { key: 2, value: "Others" },
-  ];
   const initialValues: PetFormValues = {
     name: "",
     weight: 0,
@@ -37,26 +28,18 @@ const AddPetForm: FunctionComponent = () => {
     note: "",
     animalType: animalTypeValue,
   };
+  const SubmitAddPetForm = (values: PetFormValues) => {
+    const newPetValue = { ...values, animalType: animalTypeValue };
+    PetService.create(newPetValue)
+      .then((response) => {
+        console.log("Successful response add pet: ", response);
+        navigation.navigate("Home");
+      })
+      .catch((error) => console.log("Error: ", error));
+  };
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={(values) => {
-        const newPetValue: PetFormValues = {
-          name: values.name,
-          weight: values.weight,
-          height: values.height,
-          note: values.note,
-          animalType: animalTypeValue,
-        };
-        console.log("Add Pet value is: ", newPetValue);
-        PetService.create(newPetValue)
-          .then((response) => {
-            console.log("Successful response add pet: ", response);
-            navigation.navigate("Home");
-          })
-          .catch((error) => console.log("Error: ", error));
-      }}
-    >
+    <Formik initialValues={initialValues} onSubmit={SubmitAddPetForm}>
       {({ handleChange, handleSubmit, values }) => (
         <View className="flex-1">
           <View className="p-4">

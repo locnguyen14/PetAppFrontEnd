@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { TextInput } from "react-native-gesture-handler";
@@ -17,27 +12,15 @@ import { Formik } from "formik";
 
 // services
 import PetService from "../../services/PetService";
-import {
-  useFocusEffect,
-  useIsFocused,
-  useNavigation,
-} from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 // types
-interface AnimalType {
-  key: number;
-  value: string;
-}
+import { PetCategory } from "./types";
 
 import { EditPetFormProps } from "./types";
 import { Props as EditPetPageProps } from "../../screens/EditPet";
 
 const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
-  const PetCategory: AnimalType[] = [
-    { key: 0, value: "Dog" },
-    { key: 1, value: "Cat" },
-    { key: 2, value: "Others" },
-  ];
   const { id, name, weight, height, description, type } = props;
   const [animalTypeValue, setAnimalTypeValue] = useState(
     PetCategory.find((item) => item.value === type)?.key ?? 0
@@ -47,20 +30,29 @@ const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
   const isFocused = useIsFocused();
 
   const initialValues: PetFormValues = {
-    name: name,
-    weight: weight,
-    height: height,
+    name,
+    weight,
+    height,
     note: description,
     animalType: animalTypeValue,
   };
   const [currentPetValue, setCurrentPetValue] =
     useState<PetFormValues>(initialValues);
+  const SubmitEditPetForm = (values: PetFormValues) => {
+    const editPetValue = { ...values, animalType: animalTypeValue };
+    PetService.edit(editPetValue, petId)
+      .then((response) => {
+        console.log("Successful Edit Animal: ", response);
+        navigation.navigate("Home");
+      })
+      .catch((error) => console.log("Error: ", error));
+  };
 
   useEffect(() => {
     const loadPetDetails = async () => {
       console.log("Load Pet Detail");
       try {
-        var newPetDetail = (await PetService.getDetails(petId)).data.results;
+        const newPetDetail = (await PetService.getDetails(petId)).data.results;
         setCurrentPetValue(newPetDetail);
       } catch (error) {
         console.log("Error Loading Pet Details: ", error);
@@ -72,24 +64,7 @@ const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
   }, [isFocused]);
 
   return (
-    <Formik
-      initialValues={currentPetValue}
-      onSubmit={(values) => {
-        const editPetValue: PetFormValues = {
-          name: values.name,
-          weight: values.weight,
-          height: values.height,
-          note: values.note,
-          animalType: animalTypeValue,
-        };
-        PetService.edit(editPetValue, petId)
-          .then((response) => {
-            console.log("Successful Edit Animal: ", response);
-            navigation.navigate("Home");
-          })
-          .catch((error) => console.log("Error: ", error));
-      }}
-    >
+    <Formik initialValues={currentPetValue} onSubmit={SubmitEditPetForm}>
       {({ handleChange, handleSubmit, values }) => (
         <View className="flex-1">
           <View className="p-4">
