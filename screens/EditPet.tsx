@@ -17,7 +17,6 @@ const AddPetContainer = styled(Container)`
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
 import EditPetForm from "../components/PetForm/EditPetForm";
-import { PetFormValues } from "components/PetForm/types";
 export type Props = StackScreenProps<AuthStackParamList, "EditPet">;
 
 const EditPet: FunctionComponent<Props> = ({ route }) => {
