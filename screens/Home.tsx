@@ -1,21 +1,23 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar"; // zone above the screen where you see all the wifi shit
-import styled from "styled-components/native";
 import { useIsFocused } from "@react-navigation/native";
+import { styled } from "nativewind";
 
 //custom components
 import { colors } from "../components/colors";
 import { Container } from "../components/shared";
 import PetSection from "../components/PetList/PetSection";
+import { View } from "react-native";
 
 // services
 import PetService from "../services/PetService";
 
-const HomeContainer = styled(Container)`
-  background-color: ${colors.graylight};
-  width: 100%;
-  flex: 1;
-`;
+// const HomeContainer = styled(Container)`
+//   background-color: ${colors.graylight};
+//   width: 100%;
+//   flex: 1;
+// `;
+const HomeContainer = styled(View);
 
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
@@ -52,7 +54,7 @@ const Home: FunctionComponent<Props> = () => {
   }, [isFocused]);
 
   return (
-    <HomeContainer>
+    <HomeContainer className="w-full">
       <StatusBar style="dark" />
       <PetSection data={petData} />
     </HomeContainer>
