@@ -46,7 +46,7 @@ const AddPetForm: FunctionComponent = () => {
     };
     PetService.create(newPetValue)
       .then((response) => {
-        console.log("Successful response add pet: ", response);
+        console.log("Successful response add pet");
         navigation.navigate("Home");
       })
       .catch((error) => console.log("Error: ", error));
