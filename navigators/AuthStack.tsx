@@ -42,7 +42,7 @@ const AuthStack: FunctionComponent = () => {
         },
         headerTintColor: colors.black,
       }}
-      initialRouteName="Home"
+      initialRouteName="AddPet"
     >
       <Stack.Screen
         name="Home"

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Keyboard } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
-import { TextInput } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import {
   ImagePickerAsset,
@@ -67,11 +67,8 @@ const AddPetForm: FunctionComponent = () => {
   return (
     <Formik initialValues={initialValues} onSubmit={SubmitAddPetForm}>
       {({ handleChange, handleSubmit, values }) => (
-        <View className="flex-1">
-          <View className="p-4">
-            <RegularButton onPress={HandleChoosePhoto}>
-              Upload Photo
-            </RegularButton>
+        <ScrollView keyboardShouldPersistTaps="never">
+          <View className="p-2">
             <FormLabel text="Pet Name" />
             <TextInput
               className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
@@ -109,6 +106,11 @@ const AddPetForm: FunctionComponent = () => {
               data={PetCategory}
               save="key"
             />
+          </View>
+          <View className="p-2">
+            <RegularButton onPress={HandleChoosePhoto}>
+              Upload Photo
+            </RegularButton>
             {animalPhoto && (
               <>
                 <Image
@@ -118,10 +120,12 @@ const AddPetForm: FunctionComponent = () => {
               </>
             )}
           </View>
-          <SubmitButton onPress={() => handleSubmit()}>
-            Save Animal
-          </SubmitButton>
-        </View>
+          <View>
+            <SubmitButton onPress={() => handleSubmit()}>
+              Save Animal
+            </SubmitButton>
+          </View>
+        </ScrollView>
       )}
     </Formik>
   );
