@@ -6,6 +6,7 @@ import PetItem from "./PetItem";
 import { PetSectionProps } from "./types";
 import { View, Text, FlatList, SafeAreaView } from "react-native";
 import { styled } from "nativewind";
+import { ScrollView } from "react-native-gesture-handler";
 
 const PetSectionBackGround = styled(View);
 const PetRow = styled(View);
@@ -19,7 +20,7 @@ const PetSection: FunctionComponent<PetSectionProps> = (props) => {
         <StyleText>ANIMAL</StyleText>
         <StyleText>TYPE</StyleText>
       </PetRow>
-      <SafeAreaView className="h-full">
+      <SafeAreaView>
         <PetList
           className="flex"
           data={props.data}
