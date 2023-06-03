@@ -22,24 +22,25 @@ const HomeContainer = styled(View);
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
-import { PetProps } from "../components/PetList/types";
+import { PetListProp, PetProps } from "../components/PetList/types";
 export type Props = StackScreenProps<AuthStackParamList, "Home">;
 
 const Home: FunctionComponent<Props> = () => {
-  const [petData, setPetData] = useState<PetProps[]>([]);
+  const [petData, setPetData] = useState<PetListProp[]>([]);
   const isFocused = useIsFocused();
   const loadPets = async () => {
     console.log("Load Pets");
     try {
       var pets = await PetService.getAll();
-      var newPetData = pets.data.results.map((item) => ({
+      // TODO: how do we ensure item here to be the same type of the value on the back-end
+      var newPetData = pets.data.results.map((item: any) => ({
         name: item.name,
         id: item.animal_id,
         weight: item.weight,
         height: item.height,
         description: item.note,
         type: item.animalType,
-        art: { icon: "cat", background: colors.primary },
+        image: item.image,
       }));
       setPetData(newPetData);
     } catch (error) {

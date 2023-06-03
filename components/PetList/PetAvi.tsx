@@ -1,12 +1,6 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components/native";
 
-import { colors } from "../colors";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-import { Image } from "react-native";
-
 import { PetAviProps } from "./types";
 
 const StyledView = styled.View`
@@ -25,12 +19,10 @@ const AvatarImage = styled.Image`
   align-items: center;
 `;
 
-const randomImageSouce = require("./../../assets/cat/Bullet.jpg");
-
 const PetAvi: FunctionComponent<PetAviProps> = (props) => {
   return (
     <StyledView style={{ backgroundColor: props.background }}>
-      <AvatarImage source={randomImageSouce} />
+      <AvatarImage source={{ uri: props.icon }} />
     </StyledView>
   );
 };

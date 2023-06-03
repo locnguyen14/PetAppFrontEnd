@@ -5,11 +5,10 @@ export interface PetProps {
   height: number;
   description: string;
   type: string;
-  art: {
-    icon: any; // icon from expo vector for now, replace by pet image, any here and then on the front end just hardcode it
-    background: string;
-  };
+  image?: string;
 }
+
+export interface PetListProp extends PetProps {}
 
 export interface PetSectionProps {
   data: Array<PetProps>;
@@ -17,6 +16,6 @@ export interface PetSectionProps {
 
 // Art icon for pet
 export interface PetAviProps {
-  icon: any;
+  icon?: string;
   background: string;
 }

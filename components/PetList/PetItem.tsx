@@ -35,7 +35,7 @@ const PetItem: FunctionComponent<PetProps> = (props) => {
     <PetTouchable underlayColor={colors.graylight} onPress={handlePress}>
       <TouchableView className=" h-24 flex flex-row justify-between">
         <LeftView className="flex flex-row">
-          <PetAvi background={props.art.background} icon={props.art.icon} />
+          <PetAvi background={colors.primary} icon={props.image} />
           <View>
             <RegularText
               textStyles={{

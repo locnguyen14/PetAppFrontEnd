@@ -28,12 +28,10 @@ const PetDetailSectionBackground = styled.View`
 //types
 import { PetDetailProps } from "./types";
 
-const randomImageSouce = require("./../../assets/cat/Bullet.jpg");
-
 const PetDetailSection: FunctionComponent<PetDetailProps> = (props) => {
   return (
     <PetDetailSectionBackground>
-      <PetDetailImage source={randomImageSouce} />
+      <PetDetailImage source={{ uri: props.image }} />
       {/* Name */}
       <RegularText
         textStyles={{ color: colors.tertiray, marginBottom: 10, fontSize: 25 }}
