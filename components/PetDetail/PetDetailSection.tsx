@@ -1,86 +1,80 @@
 import React, { FunctionComponent } from "react";
-import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
+import { styled } from "nativewind";
 
 //Custom Components
 import { colors } from "../colors";
 import RegularText from "../Texts/RegularText";
-import SmallText from "../Texts/SmallText";
-import BigText from "../Texts/BigText";
+import { Image } from "react-native";
 
-import { ScreenWidth } from "./../shared";
+const PetDetailImage = styled(Image);
 
-const PetDetailImage = styled.Image`
-  height: 40%;
-  width: ${ScreenWidth * 0.9}px;
-  resize-mode: cover;
-  background-color: ${colors.primary};
-  border-radius: 25px;
-`;
-
-const PetDetailSectionBackground = styled.View`
-  width: 100%
-  padding-top: 5px;
-  align-items: center;
-  flex: 3;
-`;
+const PetDetailSectionBackground = styled(View);
 
 //types
 import { PetDetailProps } from "./types";
+import { View } from "react-native";
 
 const PetDetailSection: FunctionComponent<PetDetailProps> = (props) => {
   return (
-    <PetDetailSectionBackground>
-      <PetDetailImage source={{ uri: props.image }} />
-      {/* Name */}
-      <RegularText
-        textStyles={{ color: colors.tertiray, marginBottom: 10, fontSize: 25 }}
-      >
-        <Ionicons name="paw" color={colors.tertiray} size={25} /> Name
-      </RegularText>
-      <RegularText textStyles={{ color: colors.primary, marginBottom: 15 }}>
-        {props.name}
-      </RegularText>
+    <PetDetailSectionBackground className="flex flex-col px-2 space-y-5">
+      <PetDetailImage
+        className=" h-40 bg-amber-900 object-none"
+        source={{ uri: props.image }}
+      />
+      <View className="flex flex-row justify-around">
+        <View>
+          {/* Name */}
+          <RegularText textStyles={{ color: colors.tertiray }}>
+            <Ionicons name="paw" color={colors.tertiray} /> Name
+          </RegularText>
+          <RegularText textStyles={{ color: colors.primary }}>
+            {props.name}
+          </RegularText>
+        </View>
 
-      {/* Height */}
-      <RegularText
-        textStyles={{ color: colors.tertiray, marginBottom: 10, fontSize: 20 }}
-      >
-        Height
-      </RegularText>
-      <RegularText textStyles={{ color: colors.primary, marginBottom: 15 }}>
-        {props.height}
-      </RegularText>
+        <View>
+          {/* Height */}
+          <RegularText textStyles={{ color: colors.tertiray }}>
+            Height
+          </RegularText>
+          <RegularText textStyles={{ color: colors.primary }}>
+            {props.height}
+          </RegularText>
+        </View>
+      </View>
+      <View className="flex flex-row justify-around">
+        <View>
+          {/* Weight */}
+          <RegularText textStyles={{ color: colors.tertiray }}>
+            Weight
+          </RegularText>
+          <RegularText textStyles={{ color: colors.primary }}>
+            {props.weight}
+          </RegularText>
+        </View>
 
-      {/* Weight */}
-      <RegularText
-        textStyles={{ color: colors.tertiray, marginBottom: 10, fontSize: 20 }}
-      >
-        Weight
-      </RegularText>
-      <RegularText textStyles={{ color: colors.primary, marginBottom: 15 }}>
-        {props.weight}
-      </RegularText>
-
-      {/* Type */}
-      <RegularText
-        textStyles={{ color: colors.tertiray, marginBottom: 10, fontSize: 20 }}
-      >
-        Type
-      </RegularText>
-      <RegularText textStyles={{ color: colors.primary, marginBottom: 15 }}>
-        {props.type}
-      </RegularText>
-
-      {/* Note */}
-      <RegularText
-        textStyles={{ color: colors.tertiray, marginBottom: 10, fontSize: 20 }}
-      >
-        Description
-      </RegularText>
-      <RegularText textStyles={{ color: colors.primary, marginBottom: 15 }}>
-        {props.description}
-      </RegularText>
+        <View>
+          {/* Type */}
+          <RegularText textStyles={{ color: colors.tertiray }}>
+            Type
+          </RegularText>
+          <RegularText textStyles={{ color: colors.primary }}>
+            {props.type}
+          </RegularText>
+        </View>
+      </View>
+      <View className="flex flex-row justify-around">
+        <View>
+          {/* Note */}
+          <RegularText textStyles={{ color: colors.tertiray }}>
+            Description
+          </RegularText>
+          <RegularText textStyles={{ color: colors.primary }}>
+            {props.description}
+          </RegularText>
+        </View>
+      </View>
     </PetDetailSectionBackground>
   );
 };

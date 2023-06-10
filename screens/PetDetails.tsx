@@ -1,26 +1,20 @@
 import React, { FunctionComponent } from "react";
 import { StatusBar } from "expo-status-bar";
-import styled from "styled-components/native";
+import { styled as windStyled } from "nativewind";
+import { View } from "react-native";
 
 // custom components
-import { colors } from "../components/colors";
-import { Container } from "../components/shared";
 import RegularButton from "../components/Buttons/RegularButton";
 import PetDetailSection from "../components/PetDetail/PetDetailSection";
 
 import PetService from "../services/PetService";
 
-const PetDetailContainer = styled(Container)`
-  background-color: ${colors.graylight};
-  width: 100%;
-  padding: 25px;
-  flex: 2;
-`;
+const PetDetailContainer = windStyled(View);
+const ButtonContainer = windStyled(View);
 
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
-import { EditPetFormProps } from "components/PetForm/types";
 type Props = StackScreenProps<AuthStackParamList, "PetDetails">;
 
 const PetDetails: FunctionComponent<Props> = ({ route, navigation }) => {
@@ -40,11 +34,23 @@ const PetDetails: FunctionComponent<Props> = ({ route, navigation }) => {
   };
 
   return (
-    <PetDetailContainer>
+    <PetDetailContainer className="flex flex-col space-y-0">
       <StatusBar style="dark" />
       <PetDetailSection {...route?.params} />
-      <RegularButton onPress={() => HandleDelete()}>Delete</RegularButton>
-      <RegularButton onPress={() => ToEditPage()}>Edit</RegularButton>
+      <ButtonContainer className="flex flex-row">
+        <View className="w-1/2 p-2">
+          <RegularButton
+            btnStyles={{ backgroundColor: "red" }}
+            textStyles={{ color: "white" }}
+            onPress={() => HandleDelete()}
+          >
+            Delete
+          </RegularButton>
+        </View>
+        <View className="w-1/2 p-2">
+          <RegularButton onPress={() => ToEditPage()}>Edit</RegularButton>
+        </View>
+      </ButtonContainer>
     </PetDetailContainer>
   );
 };
