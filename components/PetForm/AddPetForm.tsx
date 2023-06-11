@@ -107,7 +107,7 @@ const AddPetForm: FunctionComponent = () => {
               save="key"
             />
           </View>
-          <View className="p-2">
+          <View className="p-2 items-center">
             <RegularButton onPress={HandleChoosePhoto}>
               Upload Photo
             </RegularButton>
@@ -120,7 +120,7 @@ const AddPetForm: FunctionComponent = () => {
               </>
             )}
           </View>
-          <View>
+          <View className="p-2">
             <SubmitButton onPress={() => handleSubmit()}>
               Save Animal
             </SubmitButton>
