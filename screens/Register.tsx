@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
-import styled from "styled-components/native";
-import { View, TextInput, Button, Text } from "react-native";
+import { View, TextInput } from "react-native";
 
 // Customisted components
 import FormLabel from "../components/Texts/FormLabel";
