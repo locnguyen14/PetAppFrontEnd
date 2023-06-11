@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { StatusBar } from "expo-status-bar";
-import { styled as windStyled } from "nativewind";
+import { styled } from "nativewind";
 import { View } from "react-native";
 
 // custom components
@@ -9,8 +9,8 @@ import PetDetailSection from "../components/PetDetail/PetDetailSection";
 
 import PetService from "../services/PetService";
 
-const PetDetailContainer = windStyled(View);
-const ButtonContainer = windStyled(View);
+const PetDetailContainer = styled(View);
+const ButtonContainer = styled(View);
 
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
