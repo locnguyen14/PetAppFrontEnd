@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { TextInput } from "react-native-gesture-handler";
 
@@ -21,7 +21,7 @@ import { EditPetFormProps } from "./types";
 import { Props as EditPetPageProps } from "../../screens/EditPet";
 
 const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
-  const { id, name, weight, height, description, type } = props;
+  const { id, name, weight, height, description, type, image } = props;
   const [animalTypeValue, setAnimalTypeValue] = useState(
     PetCategory.find((item) => item.value === type)?.key ?? 0
   );
@@ -35,6 +35,7 @@ const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
     height,
     note: description,
     animalType: animalTypeValue,
+    image: image ?? "",
   };
   const [currentPetValue, setCurrentPetValue] =
     useState<PetFormValues>(initialValues);
@@ -66,8 +67,8 @@ const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
   return (
     <Formik initialValues={currentPetValue} onSubmit={SubmitEditPetForm}>
       {({ handleChange, handleSubmit, values }) => (
-        <View className="flex-1">
-          <View className="p-4">
+        <ScrollView keyboardShouldPersistTaps="never">
+          <View className="p-2">
             <FormLabel text="Pet Name" />
             <TextInput
               className=" bg-gray-100 border border-gray-100 rounded-md p-2 mb-4"
@@ -107,7 +108,7 @@ const EditPetForm: FunctionComponent<EditPetFormProps> = (props) => {
             />
           </View>
           <SubmitButton onPress={() => handleSubmit()}>Edit</SubmitButton>
-        </View>
+        </ScrollView>
       )}
     </Formik>
   );

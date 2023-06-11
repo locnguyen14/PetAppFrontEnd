@@ -1,30 +1,22 @@
 import React, { FunctionComponent } from "react";
 import { StatusBar } from "expo-status-bar";
-import styled from "styled-components/native";
+import { styled as windstyled } from "nativewind";
 
-// custom components
-import { colors } from "../components/colors";
-import { Container } from "../components/shared";
-
-const AddPetContainer = styled(Container)`
-  background-color: ${colors.graylight};
-  width: 100%;
-  padding: 25px;
-  flex: 2;
-`;
+const EditPetContainer = windstyled(View);
 
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
 import EditPetForm from "../components/PetForm/EditPetForm";
+import { View } from "react-native";
 export type Props = StackScreenProps<AuthStackParamList, "EditPet">;
 
 const EditPet: FunctionComponent<Props> = ({ route }) => {
   return (
-    <AddPetContainer>
+    <EditPetContainer className=" bg-gray-200">
       <StatusBar style="dark" />
       <EditPetForm {...route?.params} />
-    </AddPetContainer>
+    </EditPetContainer>
   );
 };
 
