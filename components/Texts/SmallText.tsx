@@ -1,15 +1,10 @@
 import React, { FunctionComponent } from "react";
-import styled from "styled-components/native";
+import { styled } from "nativewind";
 
-import { colors } from "../colors";
 import { TextProps } from "./types";
+import { Text } from "react-native";
 
-const StyledText = styled.Text`
-  font-size: 13px;
-  color: ${colors.gray};
-  text-align: left;
-  font-family: Raleway-Regular;
-`;
+const StyledText = styled(Text, "text-sm text-gray-500 text-left");
 
 const SmallText: FunctionComponent<TextProps> = (props) => {
   return <StyledText style={props.textStyles}>{props.children}</StyledText>;

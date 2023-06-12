@@ -6,6 +6,7 @@ import {
   GestureResponderEvent,
 } from "react-native";
 import { styled } from "nativewind";
+import RegularText from "../Texts/RegularText";
 
 const ButtonText = styled(Text);
 const ButtonVIew = styled(TouchableOpacity);
@@ -21,9 +22,9 @@ const SubmitButton: FunctionComponent<ButtonProps> = (props) => {
       className=" bg-cover bg-blue-500 items-center rounded-lg px-8 py-4"
       onPress={props.onPress}
     >
-      <ButtonText className=" font-medium text-slate-100 text-base">
+      <RegularText textStyles={{ color: "white" }}>
         {props.children}
-      </ButtonText>
+      </RegularText>
     </ButtonVIew>
   );
 };

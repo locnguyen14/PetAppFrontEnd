@@ -1,23 +1,28 @@
 import React, { FunctionComponent } from "react";
-import styled from "styled-components/native";
+import { styled } from "nativewind";
 import {
   GestureResponderEvent,
   StyleProp,
   TextStyle,
   ViewStyle,
+  TouchableOpacity,
 } from "react-native";
 
-import { colors } from "../colors";
 import RegularText from "../Texts/RegularText";
 
-// defining the view
-const ButtonView = styled.TouchableOpacity`
-  align-items: center;
-  background-color: ${colors.white};
-  width: 100%;
-  padding: 20px;
-  border-radius: 20px;
-`;
+// // defining the view
+// const ButtonView = styled.TouchableOpacity`
+//   align-items: center;
+//   background-color: ${colors.white};
+//   width: 100%;
+//   padding: 20px;
+//   border-radius: 20px;
+// `;
+
+const ButtonView = styled(
+  TouchableOpacity,
+  "items-center bg-slate-100 w-full p-5 rounded-2xl"
+);
 
 interface ButtonProps {
   btnStyles?: StyleProp<ViewStyle>;
