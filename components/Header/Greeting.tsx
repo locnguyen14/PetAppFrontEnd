@@ -1,17 +1,13 @@
 import React, { FunctionComponent } from "react";
-import styled from "styled-components/native";
-import { StyleProp, TextStyle } from "react-native";
+import { styled } from "nativewind";
+import { StyleProp, TextStyle, View } from "react-native";
 
 // custom components
 import RegularText from "../Texts/RegularText";
 import SmallText from "../Texts/SmallText";
 import { colors } from "../colors";
 
-const StyleView = styled.View`
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-`;
+const StyleView = styled(View);
 
 interface GreetingProps {
   mainText: string;
@@ -22,7 +18,7 @@ interface GreetingProps {
 
 const Greeting: FunctionComponent<GreetingProps> = (props) => {
   return (
-    <StyleView>
+    <StyleView className=" flex flex-col ">
       <RegularText
         textStyles={[
           { color: colors.tertiray, fontSize: 22 },

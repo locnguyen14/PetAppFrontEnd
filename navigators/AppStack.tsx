@@ -47,7 +47,7 @@ const AppStack: FunctionComponent = () => {
         component={SignIn}
         options={{
           headerTitle: (props) => (
-            <Greeting mainText="Welcome" subText="User Login" {...props} />
+            <Greeting mainText="User Login" subText="" {...props} />
           ),
           headerLeft: () => <></>,
         }}
@@ -57,11 +57,7 @@ const AppStack: FunctionComponent = () => {
         component={Register}
         options={{
           headerTitle: (props) => (
-            <Greeting
-              mainText="Welcome"
-              subText="User Registration"
-              {...props}
-            />
+            <Greeting mainText="User Registration" subText="" {...props} />
           ),
           headerLeft: () => <></>,
         }}

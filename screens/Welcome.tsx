@@ -51,13 +51,18 @@ const Welcome: FunctionComponent<Props> = ({ navigation }) => {
           <TopImage source={background} />
         </TopSection>
         <BottomSection>
-          <BigText textStyles={{ width: "80%", marginBottom: 25 }}>
+          <BigText
+            textStyles={{ width: "100%", marginBottom: 10, textAlign: "left" }}
+          >
             Playground for your pets
           </BigText>
-          <SmallText textStyles={{ width: "80%", marginBottom: 25 }}>
+          <SmallText
+            textStyles={{ width: "80%", marginBottom: 25, textAlign: "left" }}
+          >
             Pet Knowledge Center and Scheduling Appointment
           </SmallText>
           <RegularButton
+            btnStyles={{ marginBottom: 10 }}
             onPress={() => {
               navigation.navigate("SignIn");
             }}
