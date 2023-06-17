@@ -4,30 +4,27 @@ import { useIsFocused } from "@react-navigation/native";
 import { styled } from "nativewind";
 
 //custom components
-import { colors } from "../components/colors";
-import { Container } from "../components/shared";
 import PetSection from "../components/PetList/PetSection";
 import { View } from "react-native";
 
 // services
 import PetService from "../services/PetService";
 
-// const HomeContainer = styled(Container)`
-//   background-color: ${colors.graylight};
-//   width: 100%;
-//   flex: 1;
-// `;
 const HomeContainer = styled(View);
 
 // types
 import { AuthStackParamList } from "../navigators/AuthStack";
 import { StackScreenProps } from "@react-navigation/stack";
-import { PetListProp, PetProps } from "../components/PetList/types";
+import { PetListProp } from "../components/PetList/types";
+import SubmitButton from "../components/Buttons/SubmitButton";
+import { useAuth } from "../context/Auth";
+
 export type Props = StackScreenProps<AuthStackParamList, "Home">;
 
 const Home: FunctionComponent<Props> = () => {
   const [petData, setPetData] = useState<PetListProp[]>([]);
   const isFocused = useIsFocused();
+  const auth = useAuth();
   const loadPets = async () => {
     console.log("Load Pets");
     try {
@@ -48,6 +45,11 @@ const Home: FunctionComponent<Props> = () => {
     }
   };
 
+  const handleSubmit = () => {
+    console.log("Signout Button hit");
+    auth.signOut();
+  };
+
   useEffect(() => {
     if (isFocused) {
       loadPets();
@@ -58,6 +60,7 @@ const Home: FunctionComponent<Props> = () => {
     <HomeContainer className="w-full">
       <StatusBar style="dark" />
       <PetSection data={petData} />
+      <SubmitButton onPress={() => handleSubmit()}>Sign Out</SubmitButton>
     </HomeContainer>
   );
 };
