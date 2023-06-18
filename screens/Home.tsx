@@ -18,10 +18,12 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { PetListProp } from "../components/PetList/types";
 import SubmitButton from "../components/Buttons/SubmitButton";
 import { useAuth } from "../context/Auth";
+import RegularButton from "../components/Buttons/RegularButton";
+import { colors } from "../components/colors";
 
 export type Props = StackScreenProps<AuthStackParamList, "Home">;
 
-const Home: FunctionComponent<Props> = () => {
+const Home: FunctionComponent<Props> = ({ route, navigation }) => {
   const [petData, setPetData] = useState<PetListProp[]>([]);
   const isFocused = useIsFocused();
   const auth = useAuth();
@@ -50,6 +52,11 @@ const Home: FunctionComponent<Props> = () => {
     auth.signOut();
   };
 
+  const toAddPetPage = () => {
+    console.log("Navigate to Add Pet Page");
+    navigation.navigate("AddPet");
+  };
+
   useEffect(() => {
     if (isFocused) {
       loadPets();
@@ -57,10 +64,26 @@ const Home: FunctionComponent<Props> = () => {
   }, [isFocused]);
 
   return (
-    <HomeContainer className="w-full">
+    <HomeContainer
+      style={{ backgroundColor: colors.graylight }}
+      className="flex flex-col w-full h-full px-3"
+    >
       <StatusBar style="dark" />
       <PetSection data={petData} />
-      <SubmitButton onPress={() => handleSubmit()}>Sign Out</SubmitButton>
+      <View className="flex flex-row justify-around pt-6">
+        <RegularButton
+          btnStyles={{ width: "50%" }}
+          onPress={() => toAddPetPage()}
+        >
+          AddPet
+        </RegularButton>
+        <RegularButton
+          btnStyles={{ backgroundColor: "red", width: "50%" }}
+          onPress={() => handleSubmit()}
+        >
+          Sign Out
+        </RegularButton>
+      </View>
     </HomeContainer>
   );
 };
