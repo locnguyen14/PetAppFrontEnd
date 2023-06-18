@@ -39,7 +39,9 @@ const PetItem: FunctionComponent<PetProps> = (props) => {
             >
               {props.name}
             </RegularText>
-            <SmallText textStyles={{ color: colors.primary }}>
+            <SmallText
+              textStyles={{ color: colors.primary, textAlign: "left" }}
+            >
               {props.description}
             </SmallText>
           </View>
