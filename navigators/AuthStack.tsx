@@ -49,11 +49,7 @@ const AuthStack: FunctionComponent = () => {
         component={Home}
         options={{
           headerTitle: (props) => (
-            <Greeting
-              mainText="Hey Loc"
-              subText="Welcome to Pet App"
-              {...props}
-            />
+            <Greeting mainText="Pet List" subText="" {...props} />
           ),
           headerLeft: () => <></>,
         }}
