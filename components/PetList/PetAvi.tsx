@@ -1,28 +1,23 @@
 import React, { FunctionComponent } from "react";
-import styled from "styled-components/native";
+import { styled } from "nativewind";
 
 import { PetAviProps } from "./types";
+import { View, Image } from "react-native";
 
-const StyledView = styled.View`
-  height: 45px;
-  width: 45px;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-`;
+const StyledView = styled(
+  View,
+  " h-11 w-11 rounded-lg items-center justify-center "
+);
 
-const AvatarImage = styled.Image`
-  height: 40px;
-  width: 40px;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-`;
+const AvatarImage = styled(Image);
 
 const PetAvi: FunctionComponent<PetAviProps> = (props) => {
   return (
     <StyledView style={{ backgroundColor: props.background }}>
-      <AvatarImage source={{ uri: props.icon }} />
+      <AvatarImage
+        className=" h-10 w-10 rounded-lg justify-center items-center "
+        source={{ uri: props.icon }}
+      />
     </StyledView>
   );
 };
