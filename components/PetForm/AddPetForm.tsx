@@ -35,21 +35,27 @@ const AddPetForm: FunctionComponent = () => {
     weight: 0,
     height: 0,
     note: "",
-    animalType: animalTypeValue,
+    animalType: undefined,
     image: "",
   };
-  const SubmitAddPetForm = (values: PetFormValues) => {
+  const SubmitAddPetForm = async (
+    values: PetFormValues,
+    resetFormFunc: () => void
+  ) => {
     const newPetValue: PetFormValues = {
       ...values,
       animalType: animalTypeValue,
       image: animalPhoto?.base64 ?? "",
     };
-    PetService.create(newPetValue)
+    await PetService.create(newPetValue)
       .then((response) => {
         console.log("Successful response add pet");
         navigation.navigate("Home");
       })
       .catch((error) => console.log("Error: ", error));
+    resetFormFunc();
+    setAnimalTypeValue(0);
+    setAnimalPhoto(undefined);
   };
 
   const HandleChoosePhoto = async () => {
@@ -65,7 +71,10 @@ const AddPetForm: FunctionComponent = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={SubmitAddPetForm}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, { resetForm }) => SubmitAddPetForm(values, resetForm)}
+    >
       {({ handleChange, handleSubmit, values }) => (
         <ScrollView keyboardShouldPersistTaps="never">
           <View className="p-2">

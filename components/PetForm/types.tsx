@@ -15,8 +15,8 @@ export interface PetFormValues {
   weight: number;
   height: number;
   note: string;
-  animalType: number;
-  image: string;
+  animalType?: number;
+  image?: string;
 }
 
 export type EditPetFormProps = Omit<PetDetailProps, "art">;
