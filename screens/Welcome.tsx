@@ -57,7 +57,7 @@ const Welcome: FunctionComponent<Props> = ({ navigation }) => {
               navigation.navigate("Register");
             }}
           >
-            Register
+            Sign Up
           </RegularButton>
         </BottomSection>
       </WelcomeContainer>
